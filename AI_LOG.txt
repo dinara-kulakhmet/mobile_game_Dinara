@@ -1,0 +1,15 @@
+AI LOG
+Game Development Fundamentals, Assignment 8–9 (Mobile Game Kickoff)
+I used an AI chat (Claude) for learning and debugging. I did not use an AI agent that writes code directly inside my project. The game itself (my midterm project) is my own work.
+How AI helped me:
+1. Understanding the assignment
+AI translated the assignment into Russian and explained the steps (GDD, GitHub, UI screens, video, and project submission).
+2. Fixing errors in my code
+The win screen did not appear when I started the game from the main menu. AI explained the reason (the UI was preserved between scenes, but the boss lost its reference to it) and helped me fix it in FinalBoss.cs and WinScreen.cs.
+The boss health bar appeared on every level. This problem was fixed in FinalBoss.cs.
+AI helped me fix “Missing Script” warnings on the spikes and configure the Trap script.
+3. Fixing errors in scripts
+AI helped me fix errors in two scripts: PauseMenu.cs and SafeArea.cs.
+4. Help with Unity and GitHub
+AI explained how Canvas Scaler, Anchors, Device Simulator, and GitHub Desktop work (branches, commits, and Pull Requests). I completed all the settings myself.
+All the other code and the entire game are my own work.
