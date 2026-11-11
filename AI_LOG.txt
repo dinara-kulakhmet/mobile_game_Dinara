@@ -13,3 +13,12 @@ AI helped me fix errors in two scripts: PauseMenu.cs and SafeArea.cs.
 4. Help with Unity and GitHub
 AI explained how Canvas Scaler, Anchors, Device Simulator, and GitHub Desktop work (branches, commits, and Pull Requests). I completed all the settings myself.
 All the other code and the entire game are my own work.
+
+Week 11
+
+2026-11-10
+
+I asked the AI to explain the assignment “Three Enemy Types”. It told me what I need to build: three enemies with states, vision with Raycast, fair attacks and a playtest. I used this to plan my work, but I wrote the enemy scripts myself.
+I also asked the AI to help me fix errors in my code. The AI made a mistake with the Patroller: it did not walk in one specific area, it just wandered around. I fixed it myself. I put two points, WP_A and WP_B, as borders, and now the Patroller walks only between them.
+I asked the AI to help me with the video for the assignment. It gave me a plan with a time for each part and example sentences. I changed the text to my own words and put in my real enemy names, states and numbers.
+I asked the AI how to write DECISIONS.md with the playtest results, and how to show my commits on GitHub. It gave me a template and the steps for git commit and git push. I filled the template with my real data: two testers, Zamira needed 2 tries and Dinara needed 4–5 tries.
