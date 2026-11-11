@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-// Handles damage to the player: loses a life, plays a sound and
-// makes the player blink while he is invincible.
+
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float invincibilityTime = 1.5f;
@@ -20,12 +19,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnDisable()
     {
-        // Do not stay half-transparent if the object was disabled while blinking
         SetAlpha(1f);
         isInvincible = false;
     }
 
-    // Returns true if the hit was counted, false if the player is invincible
     public bool TakeDamage()
     {
         if (isInvincible) return false;
@@ -41,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
             SoundManager.Instance.PlayHurtSound();
         }
 
-        // If that was the last life the game is paused, no need to blink
         if (Time.timeScale > 0f)
         {
             StartCoroutine(InvincibilityRoutine());
