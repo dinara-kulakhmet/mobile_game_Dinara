@@ -13,3 +13,7 @@ Today I fixed some bugs with enemy detection, damage, and movement near the edge
 Then I did the playtest on a phone with two people who had never seen my game. Zamira beat the level in 2 tries. Nurakhmet needed 4 or 5 tries. That was a bit too hard for the second player.
 
 AI helped me understand the assignment and fix some errors, but I wrote and tested the enemy logic myself.
+
+## Week 12
+
+**2026-11-18**  Started assignment 11: plan to move balance numbers into ScriptableObjects and add JSON save.
