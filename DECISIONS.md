@@ -17,3 +17,16 @@ AI helped me understand the assignment and fix some errors, but I wrote and test
 ## Week 12
 
 **2026-11-18**  Started assignment 11: plan to move balance numbers into ScriptableObjects and add JSON save.
+**2026-11-18 ** I asked the AI agent to explain the assignment and tell me what I needed to do. I created a Data folder inside Scripts and added these scripts: BossStats, ChargerStats, EnemyStats, ItemData, LevelData, PatrollerStats, PlayerStats, and ShooterStats. I also created a Data folder inside Assets for the assets. The agent showed me how to create the stats assets, but some of them were not correct for my game, so I changed them. I also fixed an old problem where the boss health UI was not decreasing on the screen.
+
+**2026-11-18** I added ItemData for Watermelon and Kiwi. I did not need to create new prefabs because they were already prefabs. Some errors appeared, and the agent helped me find and fix them.
+
+**2026-11-18 **I created a separate Game scene and made Level_01, Level_02, and Level_03 as LevelData assets. The Game scene uses these assets for the levels.
+
+**2026-11-18 **After I defeated the boss, the winScreen did not appear, even though there were no errors in the Console. At first, I thought the problem was with the victory logic or Build Profiles. Later, I found out that the problem was with the UI because the parent object was disabled. I enabled the UI again and left the winScreen, Game Over Screen, and PauseScreen disabled. They will now be enabled only by the code when needed.
+
+**2026-11-18 **Trap.cs showed the message “Player Spawn Point is not assigned” and the player was not teleported. The problem was that prefabs cannot keep references to objects from a scene. I added the Respawn tag to the PlayerSpawnPoint and used FindWithTag in Awake to find it.
+
+**2026-11-18** I set the company and product names in Project Settings. The company name is Dinara, and the product name is Juicy Journey.
+
+**2026-11-18** I asked the AI how I could create a JSON file and asked it to explain it to me. The AI explained what a JSON file is, how to create one, and how it can be used in my project.
