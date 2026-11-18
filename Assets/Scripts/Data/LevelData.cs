@@ -10,6 +10,7 @@ public class LevelData : ScriptableObject
     public float timeLimit = 90f;
     public GameObject layoutPrefab;   
     public Vector2 playerSpawn;
+    public bool hasGoal = true;
     public Vector2 goalPosition;
     public List<SpawnEntry> enemies = new List<SpawnEntry>();
     public List<SpawnEntry> items = new List<SpawnEntry>();
