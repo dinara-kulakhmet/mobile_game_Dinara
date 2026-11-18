@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379ecbbc6691946ba9124c4a57424a8b, type: 3}
   m_Name: Level_02
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelNumber: 1
-  displayName: Level 1
-  timeLimit: 90
-  layoutPrefab: {fileID: 0}
-  playerSpawn: {x: 0, y: 0}
+  levelNumber: 2
+  displayName: Level 2
+  timeLimit: 120
+  layoutPrefab: {fileID: 4688824850791448040, guid: 7357c8e661cd5488daa8ba2b11d88f65, type: 3}
+  playerSpawn: {x: -7.34, y: -3.62}
   hasGoal: 1
-  goalPosition: {x: 0, y: 0}
-  enemies: []
-  items: []
+  goalPosition: {x: 14.59, y: -2.66}
+  enemies:
+  - prefab: {fileID: 8033890893867866369, guid: 4af13d6378881493ba91d8f4256b0b1c, type: 3}
+    position: {x: 10.12, y: -3.38}
+  items:
+  - prefab: {fileID: 1074643519378184725, guid: d1157aecf9fd24bc3a869d9f6538d092, type: 3}
+    position: {x: -3.427215, y: -1.58}
+  - prefab: {fileID: 7088415219471714083, guid: f565d968c89c94e65a82f854528af5d7, type: 3}
+    position: {x: 5.866075, y: 2.55}

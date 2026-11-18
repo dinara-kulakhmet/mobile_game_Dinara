@@ -15,9 +15,25 @@ MonoBehaviour:
   levelNumber: 1
   displayName: Level 1
   timeLimit: 90
-  layoutPrefab: {fileID: 0}
-  playerSpawn: {x: 0, y: 0}
+  layoutPrefab: {fileID: 5491749857980074185, guid: f7e881d02b9e6401094a940e6a9626ce, type: 3}
+  playerSpawn: {x: -7.34, y: -3.62}
   hasGoal: 1
-  goalPosition: {x: 0, y: 0}
-  enemies: []
-  items: []
+  goalPosition: {x: 14.59, y: -0.7}
+  enemies:
+  - prefab: {fileID: 8446681883335359994, guid: 9d6c949edb5dd49678172c15cb110842, type: 3}
+    position: {x: 2.78, y: -1.25}
+  - prefab: {fileID: 2427884673092100842, guid: e4dc0328b8d574fc8adc09ace62d9c85, type: 3}
+    position: {x: 8.51, y: -1.27}
+  - prefab: {fileID: 4104932532807878565, guid: 92f4538f0580c40ed9fb87434f0a28ce, type: 3}
+    position: {x: 5.16, y: 3.67}
+  items:
+  - prefab: {fileID: 1074643519378184725, guid: d1157aecf9fd24bc3a869d9f6538d092, type: 3}
+    position: {x: -0.7, y: 1.51}
+  - prefab: {fileID: 1074643519378184725, guid: d1157aecf9fd24bc3a869d9f6538d092, type: 3}
+    position: {x: 5.39, y: 5.57}
+  - prefab: {fileID: 1074643519378184725, guid: d1157aecf9fd24bc3a869d9f6538d092, type: 3}
+    position: {x: 13.54, y: 3.55}
+  - prefab: {fileID: 7088415219471714083, guid: f565d968c89c94e65a82f854528af5d7, type: 3}
+    position: {x: 10.96, y: -1.49}
+  - prefab: {fileID: 7088415219471714083, guid: f565d968c89c94e65a82f854528af5d7, type: 3}
+    position: {x: -3, y: -1.49}
