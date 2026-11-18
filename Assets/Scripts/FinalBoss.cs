@@ -337,6 +337,12 @@ public class FinalBoss : MonoBehaviour
             }
         }
 
+        LevelController levelController = FindAnyObjectByType<LevelController>();
+        if (levelController != null)
+       {
+         levelController.CompleteLevel();  
+       }
+
         if (winScreen != null)
         {
             winScreen.Show();

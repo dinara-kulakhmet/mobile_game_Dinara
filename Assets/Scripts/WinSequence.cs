@@ -24,29 +24,17 @@ public class WinSequence : MonoBehaviour
     }
 
     private IEnumerator WinRoutine()
+  {
+    yield return new WaitForSeconds(2f);
+
+    LevelController levelController = FindAnyObjectByType<LevelController>();
+    if (levelController != null)
     {
-        yield return new WaitForSeconds(2f);
-
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
-
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-        else
-        {
-            // Last scene in Build Settings: show the win screen if there is one
-            WinScreen winScreen = FindAnyObjectByType<WinScreen>();
-
-            if (winScreen != null)
-            {
-                winScreen.Show();
-            }
-            else
-            {
-                Debug.Log("Congratulations! You completed all levels!");
-            }
-        }
+        levelController.Win();   
     }
+    else
+    {
+        Debug.LogWarning("WinSequence: LevelController not found");
+    }
+  }
 }

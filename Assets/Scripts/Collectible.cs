@@ -18,6 +18,7 @@ public class Collectible : MonoBehaviour
         {
             PointsManager.Instance.IncreasePoints(item.points);
         }
+        GameSession.Score += item.points;
 
         if (SoundManager.Instance != null)
         {
