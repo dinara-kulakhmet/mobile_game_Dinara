@@ -21,7 +21,6 @@ public class LevelController : MonoBehaviour
             return;
         }
         GameSession.Current = data;
-        GameSession.Score = 0;
 
         if (data.layoutPrefab != null) Instantiate(data.layoutPrefab);
 
@@ -71,6 +70,9 @@ public class LevelController : MonoBehaviour
     {
         if (finished) return;
         finished = true;
+        SaveManager.Data.bestScore = Mathf.Max(SaveManager.Data.bestScore, GameSession.Score);
+        SaveManager.Save();
+        GameSession.Score = 0;
         ExitToMenu();
     }
 }
