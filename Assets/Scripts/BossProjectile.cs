@@ -1,11 +1,8 @@
 using UnityEngine;
 
-// Prefab setup: SpriteRenderer + Rigidbody2D (Dynamic) + Collider2D with Is Trigger on + this script.
 [RequireComponent(typeof(Rigidbody2D))]
 public class BossProjectile : MonoBehaviour
 {
-    [SerializeField] private float lifetime = 6f;
-
     private Rigidbody2D rb;
     private float ignoreWallsUntil;
 
@@ -14,9 +11,7 @@ public class BossProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // ignoreWallsFor: the rain is spawned above the player, maybe inside the ceiling,
-    // so for a short time it flies through walls
-    public void Launch(Vector2 direction, float speed, float ignoreWallsFor = 0f)
+    public void Launch(Vector2 direction, float speed, float lifetime, float ignoreWallsFor = 0f)
     {
         rb.gravityScale = 0f;
         rb.linearVelocity = direction.normalized * speed;
@@ -35,10 +30,8 @@ public class BossProjectile : MonoBehaviour
             return;
         }
 
-        // Pickups, traps, other projectiles
         if (other.isTrigger) return;
 
-        // The boss itself (the projectile is spawned inside it)
         if (other.GetComponentInParent<FinalBoss>() != null) return;
 
         if (Time.time < ignoreWallsUntil) return;

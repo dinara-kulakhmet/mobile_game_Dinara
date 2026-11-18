@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 6f;
-    [SerializeField] private int damage = 1;
-    [SerializeField] private float lifetime = 4f;
     [SerializeField] private LayerMask obstacleMask;
 
     private Vector2 direction;
+    private float speed;
 
-    public void Launch(Vector2 dir)
+    public void Launch(Vector2 dir, float projectileSpeed, float lifetime)
     {
         direction = dir.normalized;
+        speed = projectileSpeed;
         Destroy(gameObject, lifetime);
     }
 

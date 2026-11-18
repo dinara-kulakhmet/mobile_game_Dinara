@@ -4,7 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] private int startingLives = 3;
+    [Header("Data")]
+    [SerializeField] private PlayerStats playerStats;
+
+    [Header("UI")]
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private GameObject gameOverScreen;
 
@@ -13,7 +16,13 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
-        currentLives = startingLives;
+        if (playerStats == null)
+        {
+            Debug.LogError("GameOverManager: PlayerStats is not assigned", this);
+            return;
+        }
+
+        currentLives = playerStats.startingLives;
         UpdateLivesUI();
 
         if (gameOverScreen != null)
@@ -77,7 +86,7 @@ public class GameOverManager : MonoBehaviour
 
     public void ResetLives()
     {
-        currentLives = startingLives;
+        currentLives = playerStats.startingLives;
         isGameOver = false;
         UpdateLivesUI();
     }

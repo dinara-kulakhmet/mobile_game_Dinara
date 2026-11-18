@@ -4345,7 +4345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5a29fcc310d42d7984c37443ffe459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
-  startingLives: 3
+  playerStats: {fileID: 11400000, guid: b69db9c6f2e4444caa5bf7e4d769356e, type: 2}
   livesText: {fileID: 40234133}
   gameOverScreen: {fileID: 2030728796}
 --- !u!114 &1413544875

@@ -256,16 +256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb35f2435dc94258a149912b0fdb79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
-  jumpForce: 12
+  stats: {fileID: 11400000, guid: b69db9c6f2e4444caa5bf7e4d769356e, type: 2}
   groundCheck: {fileID: 859002756}
-  groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  amountOfJumps: 2
 --- !u!61 &11411249
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -347,9 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   projectilePrefab: {fileID: 2625331076532349246, guid: 75633145742704a37b0f49efd3395966, type: 3}
-  spawnOffset: {x: 0.6, y: 0}
-  projectileSpeed: 12
-  cooldown: 0.3
 --- !u!1001 &113902628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -956,7 +948,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.127824, y: -3.2507, z: -10}
+  m_LocalPosition: {x: -6.379445, y: -3.24985, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2174,26 +2166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a47397ae3bb34736bcc24c2142301a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalBoss
-  maxHealth: 10
+  stats: {fileID: 11400000, guid: 5c6efa7c522824dd195a5826972dc622, type: 2}
   healthSlider: {fileID: 1458774109}
-  healthBarRoot: {fileID: 0}
-  activationRange: 12
+  healthBarRoot: {fileID: 1458774108}
   spriteFacesLeft: 1
-  hoverHeight: 0.25
-  hoverSpeed: 2
   projectilePrefab: {fileID: 1396856759488295268, guid: 85014a5dcb43240c9b1811fba77d5def, type: 3}
   firePoint: {fileID: 0}
-  projectileSpeed: 6
-  attackInterval: 2.5
-  phaseTwoAttackInterval: 1.5
-  fanProjectiles: 3
-  phaseTwoFanProjectiles: 5
-  fanAngle: 18
-  rainProjectiles: 4
-  phaseTwoRainProjectiles: 7
-  rainSpread: 5
-  rainSpawnHeight: 7
-  rainWarningTime: 0.8
   rainWarningPrefab: {fileID: 0}
   winScreen: {fileID: 1895384817}
 --- !u!50 &1412372391
@@ -7758,7 +7736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5a29fcc310d42d7984c37443ffe459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
-  startingLives: 3
+  playerStats: {fileID: 11400000, guid: b69db9c6f2e4444caa5bf7e4d769356e, type: 2}
   livesText: {fileID: 1206565480}
   gameOverScreen: {fileID: 2040363647}
 --- !u!114 &1895384817

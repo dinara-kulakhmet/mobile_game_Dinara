@@ -312,16 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb35f2435dc94258a149912b0fdb79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
-  jumpForce: 12
+  stats: {fileID: 11400000, guid: b69db9c6f2e4444caa5bf7e4d769356e, type: 2}
   groundCheck: {fileID: 859002756}
-  groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  amountOfJumps: 2
 --- !u!61 &11411249
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -803,27 +798,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac521d6d25704cb2b3511935fb80754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrollerEnemy
-  visionRange: 4
-  visionAngle: 90
   obstacleMask:
     serializedVersion: 2
     m_Bits: 8
   telegraphColor: {r: 1, g: 0, b: 0, a: 1}
   attackOnlyOnScreen: 1
+  stats: {fileID: 11400000, guid: 88cfdcea2deb64aed9388d22f20905d4, type: 2}
   waypoints:
   - {fileID: 337862751}
   - {fileID: 689058065}
-  patrolSpeed: 1.5
-  waypointWait: 0.5
-  chaseSpeed: 3
-  loseSightTime: 2
-  attackRange: 1
-  windUp: 0.5
-  attackCooldown: 1.2
-  damage: 1
-  contactCooldown: 1
-  edgeProbeOffset: 0.6
-  edgeProbeDepth: 1.5
 --- !u!61 &255590717
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1331,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.127824, y: -3.2507, z: -10}
+  m_LocalPosition: {x: -6.379445, y: -3.24985, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7192,7 +7175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5a29fcc310d42d7984c37443ffe459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
-  startingLives: 3
+  playerStats: {fileID: 11400000, guid: b69db9c6f2e4444caa5bf7e4d769356e, type: 2}
   livesText: {fileID: 1206565480}
   gameOverScreen: {fileID: 2040363647}
 --- !u!1001 &1939258381

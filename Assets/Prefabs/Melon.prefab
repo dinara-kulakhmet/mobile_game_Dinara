@@ -165,4 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58d1ecd8e5294178a1857a1eb76162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
-  pointsToAdd: 20
+  item: {fileID: 11400000, guid: b963e7bf2ab274397b7890f3394abddb, type: 2}
