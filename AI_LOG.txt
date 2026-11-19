@@ -13,3 +13,6 @@ AI helped me fix errors in two scripts: PauseMenu.cs and SafeArea.cs.
 4. Help with Unity and GitHub
 AI explained how Canvas Scaler, Anchors, Device Simulator, and GitHub Desktop work (branches, commits, and Pull Requests). I completed all the settings myself.
 All the other code and the entire game are my own work.
+
+12 Week
+2026-11-19 I used AI to better understand the assignment and fix errors in my project.
