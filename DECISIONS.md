@@ -30,3 +30,7 @@ AI helped me understand the assignment and fix some errors, but I wrote and test
 **2026-11-18** I set the company and product names in Project Settings. The company name is Dinara, and the product name is Juicy Journey.
 
 **2026-11-18** I asked the AI how I could create a JSON file and asked it to explain it to me. The AI explained what a JSON file is, how to create one, and how it can be used in my project.
+
+**2026-11-19 **The agent first gave me instructions for making an Android build using Build APK. However, I have an iPhone and a Mac, so this option did not work for me. I changed the build to iOS, opened the project in Xcode, and installed the game on my iPhone using my Apple ID. After that, I recorded the demo video directly from my phone instead of using an APK.
+
+**2026-11-19** The agent showed me that the Editor menu (Tools > Save) only works in the Unity Editor and does not work on the phone. I tested the save.json problem in the Unity Editor and then checked on my phone if the progress was saved after closing the app. The progress was saved successfully.
