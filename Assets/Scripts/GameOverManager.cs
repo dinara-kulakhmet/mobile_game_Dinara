@@ -4,7 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] private int startingLives = 3;
+    [Header("Data")]
+    [SerializeField] private PlayerStats playerStats;
+
+    [Header("UI")]
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private GameObject gameOverScreen;
 
@@ -13,7 +16,13 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
-        currentLives = startingLives;
+        if (playerStats == null)
+        {
+            Debug.LogError("GameOverManager: PlayerStats is not assigned", this);
+            return;
+        }
+
+        currentLives = playerStats.startingLives;
         UpdateLivesUI();
 
         if (gameOverScreen != null)
@@ -34,6 +43,10 @@ public class GameOverManager : MonoBehaviour
         {
             GameOver();
         }
+        else if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayDeathSound();   
+        }
     }
 
     private void UpdateLivesUI()
@@ -48,12 +61,17 @@ public class GameOverManager : MonoBehaviour
     {
         isGameOver = true;
 
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayLoseSound();
+
         if (gameOverScreen != null)
         {
             gameOverScreen.SetActive(true);
         }
 
         Time.timeScale = 0f;
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetPaused(true);
     }
 
     public void RestartLevel()
@@ -72,12 +90,15 @@ public class GameOverManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetPaused(false); 
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ResetLives()
     {
-        currentLives = startingLives;
+        currentLives = playerStats.startingLives;
         isGameOver = false;
         UpdateLivesUI();
     }

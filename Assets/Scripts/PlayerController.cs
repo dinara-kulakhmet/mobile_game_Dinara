@@ -3,20 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 12f;
+    [Header("Data")]
+    [SerializeField] private PlayerStats stats;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadius = .2f;
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Better Jump")]
-    [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] private float lowJumpMultiplier = 2f;
+    public PlayerStats Stats => stats;
 
-    [SerializeField] private int amountOfJumps = 1;
     private int jumpsRemaining;
 
     private PlayerControls playerControls;
@@ -33,7 +28,6 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        
         if (GetComponent<PlayerHealth>() == null)
         {
             gameObject.AddComponent<PlayerHealth>();
@@ -86,26 +80,25 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, stats.groundCheckRadius, groundLayer);
     }
 
     private void Move()
     {
-        rigidBody.linearVelocity = new Vector2(movement.x * moveSpeed, rigidBody.linearVelocity.y);
+        rigidBody.linearVelocity = new Vector2(movement.x * stats.moveSpeed, rigidBody.linearVelocity.y);
     }
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        
         if (Time.timeScale == 0f) return;
         if (jumpsRemaining <= 0) return;
 
-        if (!isGrounded && amountOfJumps > 1 && playerAnimator != null)
+        if (!isGrounded && stats.amountOfJumps > 1 && playerAnimator != null)
         {
             playerAnimator.SetTrigger("doubleJump");
         }
 
-        rigidBody.linearVelocity = new Vector2(rigidBody.linearVelocity.x, jumpForce);
+        rigidBody.linearVelocity = new Vector2(rigidBody.linearVelocity.x, stats.jumpForce);
         jumpsRemaining--;
 
         if (SoundManager.Instance != null)
@@ -118,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded && rigidBody.linearVelocity.y <= 0.01f)
         {
-            jumpsRemaining = amountOfJumps;
+            jumpsRemaining = stats.amountOfJumps;
         }
     }
 
@@ -126,7 +119,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rigidBody.linearVelocity.y < 0)
         {
-            rigidBody.linearVelocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.fixedDeltaTime;
+            rigidBody.linearVelocity += Vector2.up * Physics2D.gravity.y * stats.fallMultiplier * Time.fixedDeltaTime;
         }
     }
 
@@ -136,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         if (releasedJumpEarly)
         {
-            rigidBody.linearVelocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.fixedDeltaTime;
+            rigidBody.linearVelocity += Vector2.up * Physics2D.gravity.y * stats.lowJumpMultiplier * Time.fixedDeltaTime;
         }
     }
 

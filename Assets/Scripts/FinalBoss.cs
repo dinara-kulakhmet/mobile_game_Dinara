@@ -5,43 +5,25 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class FinalBoss : MonoBehaviour
 {
-    [Header("Health")]
-    [SerializeField] private int maxHealth = 10;
+    [Header("Data")]
+    [SerializeField] private BossStats stats;
+
+    [Header("Health UI")]
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GameObject healthBarRoot;
 
-    [Header("Activation")]
-    [SerializeField] private float activationRange = 12f;
-
     [Header("Visuals")]
     [SerializeField] private bool spriteFacesLeft = true;
-    [SerializeField] private float hoverHeight = 0.25f;
-    [SerializeField] private float hoverSpeed = 2f;
 
     [Header("Attacks")]
     [SerializeField] private BossProjectile projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 6f;
-    [SerializeField] private float attackInterval = 2.5f;
-    [SerializeField] private float phaseTwoAttackInterval = 1.5f;
 
-    [Header("Fan attack (shots at the player)")]
-    [SerializeField] private int fanProjectiles = 3;
-    [SerializeField] private int phaseTwoFanProjectiles = 5;
-    [SerializeField] private float fanAngle = 18f;
-
-    [Header("Rain attack (falls from above)")]
-    [SerializeField] private int rainProjectiles = 4;
-    [SerializeField] private int phaseTwoRainProjectiles = 7;
-    [SerializeField] private float rainSpread = 5f;
-    [SerializeField] private float rainSpawnHeight = 7f;
-    [SerializeField] private float rainWarningTime = 0.8f;
+    [Header("Rain attack")]
     [SerializeField] private GameObject rainWarningPrefab;
 
     [Header("When defeated")]
     [SerializeField] private WinScreen winScreen;
-
-    private const float RainWallIgnoreTime = 0.6f;
 
     private int currentHealth;
     private bool isActive;
@@ -52,12 +34,12 @@ public class FinalBoss : MonoBehaviour
     private Color originalColor = Color.white;
     private PlayerController player;
     private Coroutine flashRoutine;
-    
-    private bool IsPhaseTwo => currentHealth <= maxHealth / 2;
+
+    private bool IsPhaseTwo => currentHealth <= stats.maxHealth / 2;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = stats.maxHealth;
         startPosition = transform.position;
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -103,7 +85,7 @@ public class FinalBoss : MonoBehaviour
         if (!isActive)
         {
             float distance = Vector2.Distance(transform.position, player.transform.position);
-            if (distance <= activationRange)
+            if (distance <= stats.activationRange)
             {
                 Activate();
             }
@@ -138,7 +120,7 @@ public class FinalBoss : MonoBehaviour
 
     private void Hover()
     {
-        float offset = (Mathf.Sin(Time.time * hoverSpeed) + 1f) * 0.5f * hoverHeight;
+        float offset = (Mathf.Sin(Time.time * stats.hoverSpeed) + 1f) * 0.5f * stats.hoverHeight;
         transform.position = startPosition + Vector3.up * offset;
     }
 
@@ -150,10 +132,9 @@ public class FinalBoss : MonoBehaviour
         spriteRenderer.flipX = playerIsRight ? spriteFacesLeft : !spriteFacesLeft;
     }
 
-
     private IEnumerator AttackLoop()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(stats.firstAttackDelay);
 
         while (!isDead)
         {
@@ -161,6 +142,8 @@ public class FinalBoss : MonoBehaviour
             {
                 if (nextAttackIsFan)
                 {
+                    PlayBossWindup();                          
+                    yield return new WaitForSeconds(0.4f);     
                     FireFan();
                 }
                 else
@@ -171,13 +154,13 @@ public class FinalBoss : MonoBehaviour
                 nextAttackIsFan = !nextAttackIsFan;
             }
 
-            yield return new WaitForSeconds(IsPhaseTwo ? phaseTwoAttackInterval : attackInterval);
+            yield return new WaitForSeconds(IsPhaseTwo ? stats.phaseTwoAttackInterval : stats.attackInterval);
         }
     }
 
     private void FireFan()
     {
-        int count = IsPhaseTwo ? phaseTwoFanProjectiles : fanProjectiles;
+        int count = IsPhaseTwo ? stats.phaseTwoFanProjectiles : stats.fanProjectiles;
         Vector3 origin = firePoint != null ? firePoint.position : transform.position;
 
         Vector2 toPlayer = (player.transform.position - origin).normalized;
@@ -185,7 +168,7 @@ public class FinalBoss : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            float offset = (i - (count - 1) / 2f) * fanAngle;
+            float offset = (i - (count - 1) / 2f) * stats.fanAngle;
             float angle = (baseAngle + offset) * Mathf.Deg2Rad;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
@@ -195,41 +178,47 @@ public class FinalBoss : MonoBehaviour
 
     private IEnumerator RainAttack()
     {
-        int count = IsPhaseTwo ? phaseTwoRainProjectiles : rainProjectiles;
+        PlayBossWindup();
+        int count = IsPhaseTwo ? stats.phaseTwoRainProjectiles : stats.rainProjectiles;
         float[] columns = new float[count];
         float groundY = player.transform.position.y;
 
         for (int i = 0; i < count; i++)
         {
-            columns[i] = player.transform.position.x + Random.Range(-rainSpread, rainSpread);
+            columns[i] = player.transform.position.x + Random.Range(-stats.rainSpread, stats.rainSpread);
 
             if (rainWarningPrefab != null)
             {
                 GameObject warning = Instantiate(rainWarningPrefab, new Vector3(columns[i], groundY, 0f), Quaternion.identity);
-                Destroy(warning, rainWarningTime);
+                Destroy(warning, stats.rainWarningTime);
             }
         }
 
-        yield return new WaitForSeconds(rainWarningTime);
+        yield return new WaitForSeconds(stats.rainWarningTime);
 
         for (int i = 0; i < count; i++)
         {
-            Vector3 position = new Vector3(columns[i], groundY + rainSpawnHeight, 0f);
-            SpawnProjectile(position, Vector2.down, RainWallIgnoreTime);
+            Vector3 position = new Vector3(columns[i], groundY + stats.rainSpawnHeight, 0f);
+            SpawnProjectile(position, Vector2.down, stats.rainWallIgnoreTime);
         }
+    }
+
+    private void PlayBossWindup()
+    {
+      if (SoundManager.Instance != null)
+        SoundManager.Instance.PlayEnemyWindupSound();
     }
 
     private void SpawnProjectile(Vector3 position, Vector2 direction, float ignoreWallsFor)
     {
         BossProjectile projectile = Instantiate(projectilePrefab, position, Quaternion.identity);
-        projectile.Launch(direction, projectileSpeed, ignoreWallsFor);
+        projectile.Launch(direction, stats.projectileSpeed, stats.projectileLifetime, ignoreWallsFor);
     }
 
     public void TakeDamage(int amount)
     {
         if (isDead) return;
 
-        // Shot from far away: the fight starts anyway
         Activate();
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
@@ -270,7 +259,7 @@ public class FinalBoss : MonoBehaviour
             spriteRenderer.color = Color.red;
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(stats.hitFlashTime);
 
         if (spriteRenderer != null)
         {
@@ -297,17 +286,18 @@ public class FinalBoss : MonoBehaviour
     {
         if (healthSlider != null)
         {
-            healthSlider.value = (float)currentHealth / maxHealth;
+            healthSlider.value = (float)currentHealth / stats.maxHealth;
         }
     }
 
     private void Die()
     {
         isDead = true;
+          if (SoundManager.Instance != null)
+          SoundManager.Instance.PlayDeathSound();
 
         StopAllCoroutines();
 
-        // Remove everything that is still flying
         foreach (BossProjectile projectile in FindObjectsByType<BossProjectile>())
         {
             Destroy(projectile.gameObject);
@@ -328,7 +318,7 @@ public class FinalBoss : MonoBehaviour
 
     private IEnumerator DeathRoutine()
     {
-        const float duration = 1f;
+        float duration = stats.deathFadeTime;
         float timer = 0f;
 
         while (timer < duration)
@@ -357,6 +347,12 @@ public class FinalBoss : MonoBehaviour
             }
         }
 
+        LevelController levelController = FindAnyObjectByType<LevelController>();
+        if (levelController != null)
+       {
+         levelController.CompleteLevel();  
+       }
+
         if (winScreen != null)
         {
             winScreen.Show();
@@ -379,7 +375,8 @@ public class FinalBoss : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (stats == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, activationRange);
+        Gizmos.DrawWireSphere(transform.position, stats.activationRange);
     }
 }

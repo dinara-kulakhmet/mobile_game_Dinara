@@ -6,16 +6,31 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private GameObject UI;
+    [SerializeField] private LevelData[] levels;         
+    [SerializeField] private string gameSceneName = "Game";
 
     private void Start()
     {
-        // The game can be paused (timeScale = 0) when the player comes back to the menu
         Time.timeScale = 1f;
     }
 
     public void PlayGame()
     {
-        LoadLevel(1);
+        if (levels == null || levels.Length == 0) return;
+
+        LevelData target = levels[0];
+        foreach (LevelData l in levels)
+            if (SaveManager.IsUnlocked(l.levelNumber)) target = l;
+
+        StartLevel(target);
+    }
+
+    public void StartLevel(LevelData data)
+    {
+        if (data == null) return;
+        GameSession.Current = data;
+        EnableUI();
+        SceneManager.LoadScene(gameSceneName);
     }
 
     public void QuitGame()
@@ -36,21 +51,9 @@ public class MainMenu : MonoBehaviour
         levelSelectPanel.SetActive(false);
     }
 
-    public void LoadLevel(int levelIndex)
-    {
-        EnableUI();
-        SceneManager.LoadScene(levelIndex);
-    }
-
     public void EnableUI()
     {
-        // After the first game the UI already exists (DontDestroyOnLoad),
-        // the copy in this scene is not the one that must be shown
         GameObject ui = PersistentUI.Instance != null ? PersistentUI.Instance.gameObject : UI;
-
-        if (ui != null)
-        {
-            ui.SetActive(true);
-        }
+        if (ui != null) ui.SetActive(true);
     }
 }

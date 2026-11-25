@@ -3,8 +3,6 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Vision")]
-    [SerializeField] protected float visionRange = 6f;
-    [SerializeField, Range(10f, 360f)] protected float visionAngle = 90f; 
     [Tooltip("ТОЛЬКО стены/земля. Игрока в этот слой НЕ добавлять.")]
     [SerializeField] protected LayerMask obstacleMask;
 
@@ -14,10 +12,12 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Fairness")]
     [SerializeField] protected bool attackOnlyOnScreen = true;
 
+    protected abstract EnemyStats BaseStats { get; }
+
     protected Transform player;
     protected SpriteRenderer sprite;
     protected Color baseColor = Color.white;
-    protected int facing = 1; 
+    protected int facing = 1;
 
     protected virtual void Awake()
     {
@@ -38,17 +38,17 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected bool CanSeePlayer()
     {
-        if (player == null) return false;
+        if (player == null || BaseStats == null) return false;
 
         Vector2 toPlayer = player.position - transform.position;
         float dist = toPlayer.magnitude;
-        if (dist > visionRange) return false;
+        if (dist > BaseStats.visionRange) return false;
 
         Vector2 forward = new Vector2(facing, 0f);
-        if (Vector2.Angle(forward, toPlayer) > visionAngle * 0.5f) return false;
+        if (Vector2.Angle(forward, toPlayer) > BaseStats.visionAngle * 0.5f) return false;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer.normalized, dist, obstacleMask);
-        return hit.collider == null; 
+        return hit.collider == null;
     }
 
     protected bool CanAttackNow()
@@ -72,6 +72,13 @@ public abstract class EnemyBase : MonoBehaviour
         if (sprite != null) sprite.color = on ? telegraphColor : baseColor;
     }
 
+    protected void PlayWindupSound()
+   {
+    if (SoundManager.Instance != null)
+        SoundManager.Instance.PlayEnemyWindupSound();
+   }
+
+
     protected void DealDamage(GameObject target, int damage)
     {
         if (target == null) return;
@@ -81,7 +88,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual void OnDrawGizmosSelected()
     {
+        if (BaseStats == null) return;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, visionRange);
+        Gizmos.DrawWireSphere(transform.position, BaseStats.visionRange);
     }
 }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78676b9554a5f48529384a674d3ca9bb, type: 3}
+  m_Name: BossStats
+  m_EditorClassIdentifier: Assembly-CSharp::BossStats
+  maxHealth: 10
+  activationRange: 12
+  hoverHeight: 0.25
+  hoverSpeed: 2
+  hitFlashTime: 0.1
+  deathFadeTime: 1
+  projectileSpeed: 6
+  firstAttackDelay: 1
+  attackInterval: 2.5
+  phaseTwoAttackInterval: 1.5
+  projectileLifetime: 6
+  fanProjectiles: 3
+  phaseTwoFanProjectiles: 5
+  fanAngle: 18
+  rainProjectiles: 4
+  phaseTwoRainProjectiles: 7
+  rainSpread: 5
+  rainSpawnHeight: 7
+  rainWarningTime: 0.8
+  rainWallIgnoreTime: 0.6

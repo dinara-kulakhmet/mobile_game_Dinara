@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58d1ecd8e5294178a1857a1eb76162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
-  pointsToAdd: 10
+  item: {fileID: 11400000, guid: 4b0821c67323a4fc7ba8c3d0960eeec8, type: 2}
 --- !u!58 &6512403434140263854
 CircleCollider2D:
   m_ObjectHideFlags: 0

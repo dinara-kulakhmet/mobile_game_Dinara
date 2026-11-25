@@ -31,3 +31,29 @@ I set up the UI to scale with the screen size and to stay inside the safe area, 
 I used an AI chat to help me understand and fix some bugs. I wrote down what exactly it helped with in (AI_LOG.txt).
 
 Made by Dinara Kulakhmet.
+
+### Assignment 12
+#### Sound License
+https://pixabay.com/sound-effects/musical-game-music-loop-7-145285/ - Level Music, Author: XtremeFreddy, Pixabay Content License.
+
+https://pixabay.com/music/upbeat-retro-arcade-game-music-297305/ - Main Menu Music, Author: MFCC, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-cartoon-jump-6462/ - Jump Sound, Author: freesound_community, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-slap-hurt-pain-sound-effect-262618/ - Hurt Sound, Author: Homemade_SFX, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-coin-257878/ - Coin Sound, Author: chieuk, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-warning-sound-6686/ - Enemy wind-up, Author: freesound_community, Pixabay Content License.
+
+https://pixabay.com/sound-effects/musical-8-bit-game-over-634762/ - Dead Sound, Author: Chisper, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-mouse-click-351398/ - UI Click Sound, Author: Universfield, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-goodresult-82807/ - Win Sound, Author: freesound_community, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-sad-trumpet-278822/ - Game Over Sound, Author: Universfield, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-shoot-1-81135/ - Shoot Sound, Author: freesound_community, Pixabay Content License.
+
+https://pixabay.com/sound-effects/film-special-effects-video-game-hit-noise-001-135821/ - BossHit Sound, Author: EdR, Pixabay Content License.

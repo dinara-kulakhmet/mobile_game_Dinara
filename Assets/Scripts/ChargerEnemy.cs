@@ -4,18 +4,10 @@ public class ChargerEnemy : EnemyBase
 {
     private enum State { Idle, WindUp, Charge, Recover }
 
-    [Header("Charge")]
-    [SerializeField] private float windUp = 0.7f;            
-    [SerializeField] private float chargeSpeed = 9f;
-    [SerializeField] private float maxChargeDistance = 6f;
-    [SerializeField] private float wallCheckDistance = 0.6f;
-    [SerializeField] private float recoverTime = 1.2f;       
-    [SerializeField] private float hitRadius = 0.6f;
-    [SerializeField] private int damage = 1;
+    [Header("Data")]
+    [SerializeField] private ChargerStats stats;
 
-    [Header("Edge check")]
-    [SerializeField] private float edgeProbeOffset = 0.6f;
-    [SerializeField] private float edgeProbeDepth = 1.5f;
+    protected override EnemyStats BaseStats => stats;
 
     private State state = State.Idle;
     private float timer;
@@ -23,15 +15,8 @@ public class ChargerEnemy : EnemyBase
     private float startX;
     private bool hitDone;
 
-    [Header("Hit detection")]
-    [SerializeField] private float hitPadding = 0.1f; 
     private Collider2D myCollider;
     private Collider2D playerCollider;
-
-    private void Reset()
-    {
-        visionAngle = 140f;
-    }
 
     protected override void Awake()
     {
@@ -45,14 +30,13 @@ public class ChargerEnemy : EnemyBase
         if (player != null) playerCollider = player.GetComponentInChildren<Collider2D>();
     }
 
-    
     private bool TouchesPlayer()
     {
         if (myCollider == null || playerCollider == null)
-            return DistanceToPlayer() <= hitRadius; 
+            return DistanceToPlayer() <= stats.hitRadius;
 
         Bounds b = myCollider.bounds;
-        b.Expand(hitPadding);
+        b.Expand(stats.hitPadding);
         return b.Intersects(playerCollider.bounds);
     }
 
@@ -73,15 +57,16 @@ public class ChargerEnemy : EnemyBase
 
         chargeDir = player.position.x > transform.position.x ? 1 : -1;
         SetFacing(chargeDir);
-        timer = 0f;
-        state = State.WindUp;
-        SetTelegraph(true); 
+          timer = 0f;
+          state = State.WindUp;
+          SetTelegraph(true);
+          PlayWindupSound();   
     }
 
     private void UpdateWindUp()
     {
         timer += Time.deltaTime;
-        if (timer >= windUp)
+        if (timer >= stats.windUp)
         {
             SetTelegraph(false);
             startX = transform.position.x;
@@ -93,11 +78,11 @@ public class ChargerEnemy : EnemyBase
     private void UpdateCharge()
     {
         RaycastHit2D wall = Physics2D.Raycast(transform.position, new Vector2(chargeDir, 0f),
-                                              wallCheckDistance, obstacleMask);
-        bool tooFar = Mathf.Abs(transform.position.x - startX) >= maxChargeDistance;
+                                              stats.wallCheckDistance, obstacleMask);
+        bool tooFar = Mathf.Abs(transform.position.x - startX) >= stats.maxChargeDistance;
 
-        Vector2 probe = (Vector2)transform.position + new Vector2(chargeDir * edgeProbeOffset, 0f);
-        bool noGround = Physics2D.Raycast(probe, Vector2.down, edgeProbeDepth, obstacleMask).collider == null;
+        Vector2 probe = (Vector2)transform.position + new Vector2(chargeDir * stats.edgeProbeOffset, 0f);
+        bool noGround = Physics2D.Raycast(probe, Vector2.down, stats.edgeProbeDepth, obstacleMask).collider == null;
 
         if (wall.collider != null || tooFar || noGround)
         {
@@ -106,18 +91,18 @@ public class ChargerEnemy : EnemyBase
             return;
         }
 
-        transform.position += new Vector3(chargeDir * chargeSpeed * Time.deltaTime, 0f, 0f);
+        transform.position += new Vector3(chargeDir * stats.chargeSpeed * Time.deltaTime, 0f, 0f);
 
         if (!hitDone && TouchesPlayer())
         {
             hitDone = true;
-            DealDamage(player.gameObject, damage);
+            DealDamage(player.gameObject, stats.damage);
         }
     }
 
     private void UpdateRecover()
     {
         timer += Time.deltaTime;
-        if (timer >= recoverTime) state = State.Idle;
+        if (timer >= stats.recoverTime) state = State.Idle;
     }
 }

@@ -1,35 +1,32 @@
 using UnityEngine;
 
-// Prefab setup: SpriteRenderer + Rigidbody2D (Dynamic) + Collider2D with Is Trigger on + this script.
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerProjectile : MonoBehaviour
 {
-    [SerializeField] private int damage = 1;
-    [SerializeField] private float lifetime = 3f;
-
     private Rigidbody2D rb;
+    private int damage;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Launch(Vector2 direction, float speed)
+    public void Launch(Vector2 direction, PlayerStats stats)
     {
-        rb.gravityScale = 0f;
-        rb.linearVelocity = direction.normalized * speed;
+        damage = stats.projectileDamage;
 
-        // Turn the sprite to the flying direction
+        rb.gravityScale = 0f;
+        rb.linearVelocity = direction.normalized * stats.projectileSpeed;
+
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * (direction.x < 0f ? -1f : 1f);
         transform.localScale = scale;
 
-        Destroy(gameObject, lifetime);
+        Destroy(gameObject, stats.projectileLifetime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Never hit the shooter
         if (other.GetComponent<PlayerController>() != null) return;
 
         FinalBoss boss = other.GetComponentInParent<FinalBoss>();
@@ -40,10 +37,8 @@ public class PlayerProjectile : MonoBehaviour
             return;
         }
 
-        // Pickups, traps, portals and other triggers do not stop the projectile
         if (other.isTrigger) return;
 
-        // Ground and walls
         Destroy(gameObject);
     }
 }

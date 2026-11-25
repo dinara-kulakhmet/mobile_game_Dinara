@@ -4,6 +4,15 @@ public class Trap : MonoBehaviour
 {
     [SerializeField] private Transform playerSpawnPoint;
 
+    private void Awake()
+    {
+        if (playerSpawnPoint == null)
+        {
+            GameObject spawn = GameObject.FindWithTag("Respawn");
+            if (spawn != null) playerSpawnPoint = spawn.transform;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<PlayerController>() == null) return;
@@ -14,7 +23,7 @@ public class Trap : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Trap: Player Spawn Point is not assigned", this);
+            Debug.LogWarning("Trap: no object with tag Respawn in scene", this);
         }
 
         if (collision.attachedRigidbody != null)

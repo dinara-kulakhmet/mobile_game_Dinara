@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float invincibilityTime = 1.5f;
-    [SerializeField] private float blinkInterval = 0.1f;
-
+    private PlayerStats stats;
     private SpriteRenderer spriteRenderer;
     private bool isInvincible;
 
@@ -15,6 +12,9 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        PlayerController controller = GetComponent<PlayerController>();
+        if (controller != null) stats = controller.Stats;
     }
 
     private void OnDisable()
@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
             SoundManager.Instance.PlayHurtSound();
         }
 
-        if (Time.timeScale > 0f)
+        if (Time.timeScale > 0f && stats != null)
         {
             StartCoroutine(InvincibilityRoutine());
         }
@@ -51,15 +51,15 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = true;
 
         float timer = 0f;
-        while (timer < invincibilityTime)
+        while (timer < stats.invincibilityTime)
         {
             if (spriteRenderer != null)
             {
                 SetAlpha(spriteRenderer.color.a > 0.9f ? 0.3f : 1f);
             }
 
-            yield return new WaitForSeconds(blinkInterval);
-            timer += blinkInterval;
+            yield return new WaitForSeconds(stats.blinkInterval);
+            timer += stats.blinkInterval;
         }
 
         SetAlpha(1f);
