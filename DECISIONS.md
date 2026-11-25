@@ -47,4 +47,4 @@ The same thing happened with the enemies. They did not make a sound when the pla
 
 After that, I added **UI Settings** and a **SettingsPanel**, where I can change the volume of the music and SFX.
 
-I checked everything to make sure all the sounds worked well and could be heard clearly. Then I saved the project and uploaded it to my phone. I have an iPhone, so I did this using Xcode. Finally, I made a commit and created a new branch called Assignment 12.
+I checked everything to make sure all the sounds worked well and could be heard clearly. Then I saved the project and uploaded it to my phone. I have an iPhone, so I did this using Xcode. Finally, I made a commit and created a new branch called Assignment 12. I also asked AI how to make the SettingsPanel, but at first it gave me the wrong solution because it did not know my project well enough. Because of this, there were many confusing and unnecessary settings. So I simplified the SettingsPanel myself, so everything is easy to understand and the user can immediately see what to do. I also made it match the style of my game, so it fits Juicy Journey.
