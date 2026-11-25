@@ -34,3 +34,17 @@ AI helped me understand the assignment and fix some errors, but I wrote and test
 **2026-11-19 **The agent first gave me instructions for making an Android build using Build APK. However, I have an iPhone and a Mac, so this option did not work for me. I changed the build to iOS, opened the project in Xcode, and installed the game on my iPhone using my Apple ID. After that, I recorded the demo video directly from my phone instead of using an APK.
 
 **2026-11-19** The agent showed me that the Editor menu (Tools > Save) only works in the Unity Editor and does not work on the phone. I tested the save.json problem in the Unity Editor and then checked on my phone if the progress was saved after closing the app. The progress was saved successfully.
+
+## Week 13
+
+**2026-11-25** I added sounds to my game. First, I downloaded all the sounds from Pixabay.com and added them to Unity. I asked AI to explain the assignment to me and tell me where I could download good sounds.
+
+Then I created two scripts: **MusicManager** and **VolumeSettings**, and changed the code in **SoundManager.cs**. After that, I created **MainMixer** and asked AI how to set it up.
+
+Then I added all the sounds to the **SoundManager** that I have in the Hierarchy. At first, the **UISound** did not work. Then I understood the logic, and for each UI button, I added **SoundManager** to the OnClick event and selected **UISound**.
+
+The same thing happened with the enemies. They did not make a sound when the player came close to them, so I added a few lines of code to the enemy scripts.
+
+After that, I added **UI Settings** and a **SettingsPanel**, where I can change the volume of the music and SFX.
+
+I checked everything to make sure all the sounds worked well and could be heard clearly. Then I saved the project and uploaded it to my phone. I have an iPhone, so I did this using Xcode. Finally, I made a commit and created a new branch called Assignment 12.

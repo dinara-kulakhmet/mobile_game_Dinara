@@ -48,13 +48,13 @@ public class ShooterEnemy : EnemyBase
             state = State.Aim;
             timer = 0f;
             SetTelegraph(true);
+            PlayWindupSound();   
             if (aimLine != null) aimLine.enabled = true;
         }
     }
 
     private void UpdateAim()
     {
-        // Потерял игрока за стеной: отменяем выстрел (честно)
         if (!CanSeePlayer())
         {
             StopAiming();

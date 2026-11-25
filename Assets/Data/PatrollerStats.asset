@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PatrollerStats
   visionRange: 4
   visionAngle: 90
-  patrolSpeed: 1.5
+  patrolSpeed: 4
   waypointWait: 0.5
   chaseSpeed: 3
   loseSightTime: 2

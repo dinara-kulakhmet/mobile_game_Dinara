@@ -12,7 +12,6 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Fairness")]
     [SerializeField] protected bool attackOnlyOnScreen = true;
 
-    // Каждый тип врага отдаёт свой ассет, общие параметры зрения читаются из него
     protected abstract EnemyStats BaseStats { get; }
 
     protected Transform player;
@@ -72,6 +71,13 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (sprite != null) sprite.color = on ? telegraphColor : baseColor;
     }
+
+    protected void PlayWindupSound()
+   {
+    if (SoundManager.Instance != null)
+        SoundManager.Instance.PlayEnemyWindupSound();
+   }
+
 
     protected void DealDamage(GameObject target, int damage)
     {

@@ -142,6 +142,8 @@ public class FinalBoss : MonoBehaviour
             {
                 if (nextAttackIsFan)
                 {
+                    PlayBossWindup();                          
+                    yield return new WaitForSeconds(0.4f);     
                     FireFan();
                 }
                 else
@@ -176,6 +178,7 @@ public class FinalBoss : MonoBehaviour
 
     private IEnumerator RainAttack()
     {
+        PlayBossWindup();
         int count = IsPhaseTwo ? stats.phaseTwoRainProjectiles : stats.rainProjectiles;
         float[] columns = new float[count];
         float groundY = player.transform.position.y;
@@ -198,6 +201,12 @@ public class FinalBoss : MonoBehaviour
             Vector3 position = new Vector3(columns[i], groundY + stats.rainSpawnHeight, 0f);
             SpawnProjectile(position, Vector2.down, stats.rainWallIgnoreTime);
         }
+    }
+
+    private void PlayBossWindup()
+    {
+      if (SoundManager.Instance != null)
+        SoundManager.Instance.PlayEnemyWindupSound();
     }
 
     private void SpawnProjectile(Vector3 position, Vector2 direction, float ignoreWallsFor)
@@ -284,10 +293,11 @@ public class FinalBoss : MonoBehaviour
     private void Die()
     {
         isDead = true;
+          if (SoundManager.Instance != null)
+          SoundManager.Instance.PlayDeathSound();
 
         StopAllCoroutines();
 
-        // Remove everything that is still flying
         foreach (BossProjectile projectile in FindObjectsByType<BossProjectile>())
         {
             Destroy(projectile.gameObject);

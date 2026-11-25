@@ -57,9 +57,10 @@ public class ChargerEnemy : EnemyBase
 
         chargeDir = player.position.x > transform.position.x ? 1 : -1;
         SetFacing(chargeDir);
-        timer = 0f;
-        state = State.WindUp;
-        SetTelegraph(true);
+          timer = 0f;
+          state = State.WindUp;
+          SetTelegraph(true);
+          PlayWindupSound();   
     }
 
     private void UpdateWindUp()

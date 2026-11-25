@@ -43,6 +43,10 @@ public class GameOverManager : MonoBehaviour
         {
             GameOver();
         }
+        else if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayDeathSound();   
+        }
     }
 
     private void UpdateLivesUI()
@@ -57,12 +61,17 @@ public class GameOverManager : MonoBehaviour
     {
         isGameOver = true;
 
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayLoseSound();
+
         if (gameOverScreen != null)
         {
             gameOverScreen.SetActive(true);
         }
 
         Time.timeScale = 0f;
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetPaused(true);
     }
 
     public void RestartLevel()
@@ -80,6 +89,9 @@ public class GameOverManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetPaused(false); 
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

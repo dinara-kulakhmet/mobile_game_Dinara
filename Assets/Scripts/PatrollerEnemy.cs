@@ -76,6 +76,7 @@ public class PatrollerEnemy : EnemyBase
             attackTimer = 0f;
             struck = false;
             SetTelegraph(true);
+            PlayWindupSound();  
             return;
         }
 
